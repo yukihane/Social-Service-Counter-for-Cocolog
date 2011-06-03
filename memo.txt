@@ -1,0 +1,31 @@
+<script type="text/javascript" src="http://apis.google.com/js/plusone.js">
+  {lang: 'ja'}
+</script>
+
+<script type="text/javascript">
+function add_google_p1(){
+    var maybeentries = document.getElementsByTagName("div");
+    for( var entryidx in maybeentries ) {
+        if( maybeentries[entryidx].className == "entry" ) {
+            var maybeheaders = maybeentries[entryidx].getElementsByTagName("H3");
+
+            var taghref = document.location;
+            var alla = maybeheaders[0].getElementsByTagName("a");
+            if( 0 < alla.length ) { taghref = alla[0].href; }
+            
+            var googleP1 = document.createElement('g:plusone');
+
+            googleP1.setAttribute('size','medium');
+            googleP1.setAttribute('count','true');
+            googleP1.setAttribute('href',taghref);
+
+            maybeheaders[0].appendChild(googleP1);
+        }
+    }
+};
+
+add_google_p1();
+</script>
+
+
+
