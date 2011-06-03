@@ -2,30 +2,49 @@
   {lang: 'ja'}
 </script>
 
+<script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+
 <script type="text/javascript">
-function add_google_p1(){
+// author: yukihane
+function create_button_google_p1(taghref){
+    var gp1 = document.createElement('g:plusone');
+    gp1.setAttribute('size','medium');
+    gp1.setAttribute('count','true');
+    gp1.setAttribute('href',taghref);
+    return gp1
+}
+
+function create_button_hatena_bookmark(taghref, tagtitle){
+    var elm = document.createElement('a');
+    elm.setAttribute('href', 'http://b.hatena.ne.jp/entry/'+taghref);
+    elm.setAttribute('class', 'hatena-bookmark-button');
+    elm.setAttribute('data-hatena-bookmark-title', tagtitle);
+    elm.setAttribute('data-hatena-bookmark-layout', 'standard');
+    elm.setAttribute('title', 'このエントリーをはてなブックマークに追加');
+    elm.nodeValue = '<img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" />';
+    return elm;
+}
+
+function add_social_buttons_to_cocolog(){
     var maybeentries = document.getElementsByTagName("div");
     for( var entryidx in maybeentries ) {
         if( maybeentries[entryidx].className == "entry" ) {
             var maybeheaders = maybeentries[entryidx].getElementsByTagName("H3");
 
             var taghref = document.location;
+            var tagtitle = document.title;
             var alla = maybeheaders[0].getElementsByTagName("a");
-            if( 0 < alla.length ) { taghref = alla[0].href; }
+            if( 0 < alla.length ) {
+                taghref = alla[0].href;
+                tagtitle = alla[0].firstChild.nodeValue;
+            }
             
-            var googleP1 = document.createElement('g:plusone');
-
-            googleP1.setAttribute('size','medium');
-            googleP1.setAttribute('count','true');
-            googleP1.setAttribute('href',taghref);
-
-            maybeheaders[0].appendChild(googleP1);
+            maybeheaders[0].appendChild(create_button_google_p1(taghref));
+            maybeheaders[0].appendChild(create_button_hatena_bookmark(taghref, tagtitle));
         }
     }
-};
+}
 
-add_google_p1();
+add_social_buttons_to_cocolog();
 </script>
-
-
 
