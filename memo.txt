@@ -37,11 +37,12 @@ function create_button_hatena_bookmark(taghref, tagtitle){
 
 function create_button_facebook_like(tagref){
     var elm = document.createElement('div');
+    elm.style.display = 'inline-block';
+    elm.style._display = 'inline';
     elm.setAttribute('class', 'fb-like');
     elm.setAttribute('data-href', tagref);
     elm.setAttribute('data-send', 'false');
     elm.setAttribute('data-layout', 'button_count');
-    elm.setAttribute('data-width', '450');
     elm.setAttribute('data-show-faces', 'false');
     return elm;
 }
@@ -59,10 +60,24 @@ function add_social_buttons_to_cocolog(){
                 taghref = alla[0].href;
                 tagtitle = alla[0].firstChild.nodeValue;
             }
-            
-            maybeheaders[0].appendChild(create_button_google_p1(taghref));
-            maybeheaders[0].appendChild(create_button_hatena_bookmark(taghref, tagtitle));
-            maybeheaders[0].appendChild(create_button_facebook_like(taghref));
+
+            var table = document.createElement('table');
+            var tbody = document.createElement('tbody');
+            var tr = document.createElement('tr');
+
+            var buttons = [
+                create_button_hatena_bookmark(taghref, tagtitle),
+                create_button_facebook_like(taghref),
+                create_button_google_p1(taghref),
+            ];
+            for(var i = 0; i< buttons.length; i++) {
+                var td = document.createElement('td');
+                td.appendChild(buttons[i]);
+                tr.appendChild(td);
+            }
+            tbody.appendChild(tr);
+            table.appendChild(tbody);
+            maybeheaders[0].appendChild(table);
         }
     }
 }
